@@ -1,9 +1,11 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 
-const licenseInformation() => {
+const licenseInformation() => { //will be used in the fetch call to Github's API for license badge information
     fetch()
 }
+
+
 
 inquirer
   .prompt([
@@ -61,7 +63,7 @@ inquirer
       editablelist: true,
     },
   ])
-  .then((response) => {
+  .then((response) => { //async appending of all sections to the new README.md document
     fs.writeFile('README.md', `# ${response.projectName}\n\n`, (err) => {
       if (err) {
         console.error(err);
@@ -122,7 +124,11 @@ inquirer
       if (err) {
         console.error(err);
       } else {
-        console.log('Questions section and social links appended.');
+        console.log('Questions section and social links appended.'); 
       }
     });
   });
+
+  //remaining: Adding license information with a seperate license badge appedFile() command earlier in the codebase. 
+  //Incorporate a an empty string or "no license" input from the user to account for the absence of hypothetical licensing.
+  //Get clarification on criteria for how extensive API fetch needs to be, and if we should prompt the user for image submissions regarding the usage and test section. If so, how do I incorporate that?
