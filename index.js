@@ -1,9 +1,33 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 
-const licenseInformation() => { //will be used in the fetch call to Github's API for license badge information
-    fetch()
-}
+const licenseList = [
+  'The MIT License',
+  'Mozilla Public License 2.0',
+  'IBM Public License Version 1.0',
+  'Apache 2.0 License',
+  'License: Unlicense',
+  'SIL Open Font License 1.1',
+  'No License',
+];
+
+const licenseNames = [
+  '## License\n\nLicense: MIT',
+  '## License\n\nLicense: MPL 2.0',
+  '## License\n\nLicense: IPL 1.0',
+  '## License\n\nLicense: Apache 2.0',
+  '## License\n\nLicense: Unlicense',
+  '## License\n\nLicense: Open Font-1.1',
+];
+
+const licenseBadges = [
+  '[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)',
+  '[![License: MPL 2.0](https://img.shields.io/badge/License-MPL_2.0-brightgreen.svg)](https://opensource.org/licenses/MPL-2.0)',
+  '[![License: IPL 1.0](https://img.shields.io/badge/License-IPL_1.0-blue.svg)](https://opensource.org/licenses/IPL-1.0)',
+  '[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)',
+  '[![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)',
+  '[![License: Open Font-1.1](https://img.shields.io/badge/License-OFL_1.1-lightgreen.svg)](https://opensource.org/licenses/OFL-1.1)',
+];
 
 
 
@@ -57,13 +81,22 @@ inquirer
     },
     {
       type: 'list',
-      message: 'Provide your github information:',
+      message: 'Please select a license from the following list, which will be appended into the "License" section, including the license badge at the top of the README: ',
       name: 'license',
       choices: licenseList,
       editablelist: true,
     },
   ])
-  .then((response) => { //async appending of all sections to the new README.md document
+  .then((response) => {
+    const {license} = response; //extracts license choice from the response object
+
+    const index = licenseList.indexOf(license); //indexOf returns the position at which the user's choice within the licenseList can be found.
+  
+    const licenseName = licenseNames[index]; //selects the associated header to be used within the license section
+    const licenseBadge = licenseBadges[index]; //selects the associated badge to be used at the top of the README, after the description.
+  
+
+    //async appending of all sections to the new README.md document
     fs.writeFile('README.md', `# ${response.projectName}\n\n`, (err) => {
       if (err) {
         console.error(err);
@@ -80,6 +113,14 @@ inquirer
       }
     });
 
+    fs.appendFile('README.md', `${licenseBadge}\n\n`, (err) => {
+      if (err) {
+        console.error(err);
+      } else {
+        console.log('License badge appended.');
+      }
+    });
+
     fs.appendFile('README.md', `## Installation\n\n${response.install}\n\n`, (err) => {
       if (err) {
         console.error(err);
@@ -88,7 +129,7 @@ inquirer
       }
     });
 
-    fs.appendFile('README.md', `## Table of Contents\n\nIf your README is long, add a table of contents to make it easy for users to find what they need.\n\n- [Installation](#installation)\n- [Usage](#usage)\n- [Contribution](#contribution)\n- [Tests](#tests)\n- [Questions?](#questions?)\n- [License](#license)\n\n`, (err) => {
+    fs.appendFile('README.md', `## Table of Contents\n\n- [Installation](#installation)\n- [Usage](#usage)\n- [Contribution](#contribution)\n- [Tests](#tests)\n- [Questions?](#questions?)\n- [License](#license)\n\n`, (err) => {
       if (err) {
         console.error(err);
       } else {
@@ -120,6 +161,14 @@ inquirer
       }
     });
 
+    fs.appendFile('README.md', `${licenseName}\n\n`, (err) => { //licenseName provides full name rather than selection from licenseList
+      if (err) {
+        console.error(err);
+      } else {
+        console.log('License header appended.');
+      }
+    });
+
     fs.appendFile('README.md', `## Questions?\n\nMy Github: ${response.questionsGithub}\nMy email: ${response.questionsEmail}\n${response.questions}`, (err) => {
       if (err) {
         console.error(err);
@@ -128,7 +177,3 @@ inquirer
       }
     });
   });
-
-  //remaining: Adding license information with a seperate license badge appedFile() command earlier in the codebase. 
-  //Incorporate a an empty string or "no license" input from the user to account for the absence of hypothetical licensing.
-  //Get clarification on criteria for how extensive API fetch needs to be, and if we should prompt the user for image submissions regarding the usage and test section. If so, how do I incorporate that?
