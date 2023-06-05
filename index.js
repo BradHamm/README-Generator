@@ -46,6 +46,11 @@ inquirer
     },
     {
       type: 'input',
+      message: 'Provide languages, programs or other resources used to complete this project. This will comprise the "Technologies Used" section: ',
+      name: 'tech',
+    },
+    {
+      type: 'input',
       message: 'Provide intallation instructions, so the user knows how to set up the environment for your program: ',
       name: 'install',
     },
@@ -118,6 +123,14 @@ inquirer
         console.error(err);
       } else {
         console.log('License badge appended.');
+      }
+    });
+
+    fs.appendFile('README.md', `## Technologies Used:\n\n${response.tech}\n\n`, (err) => {
+      if (err) {
+        console.error(err);
+      } else {
+        console.log('Technologies used appended.');
       }
     });
 
