@@ -142,7 +142,7 @@ inquirer
       }
     });
 
-    fs.appendFile('README.md', `## Table of Contents\n\n- [Installation](#installation)\n- [Usage](#usage)\n- [Contribution](#contribution)\n- [Tests](#tests)\n- [Questions?](#questions?)\n- [License](#license)\n\n`, (err) => {
+    fs.appendFile('README.md', `## Table of Contents\n\n- [Technologies Used](#technologies-used)\n- [Installation](#installation)\n- [Usage](#usage)\n- [Contribution](#contribution)\n- [Tests](#tests)\n- [Questions?](#questions?)\n- [License](#license)\n\n`, (err) => {
       if (err) {
         console.error(err);
       } else {
@@ -182,7 +182,7 @@ inquirer
       }
     });
 
-    fs.appendFile('README.md', `## Questions?\n\nMy Github: ${response.questionsGithub}\nMy email: ${response.questionsEmail}\n${response.questions}`, (err) => {
+    fs.appendFile('README.md', `## Questions?\n\nMy Github: https://github.com/${response.questionsGithub}/\nMy email: ${response.questionsEmail}\n${response.questions}`, (err) => {
       if (err) {
         console.error(err);
       } else {

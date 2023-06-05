@@ -1,9 +1,5 @@
 # README Generator
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
-## Description
-
 For our most recent project, we were asked to create a README generator which automatically formatted user submitted information through the terminal into a comprehensive markdown file for project submissions to Github. Using the inquirer package installed via npm onto a local package.json file, prompts could be given to the user giving clear instructions on what to provide and where the information would be appended inside of the README.md file. The Acceptance Criteria can be found down below for reference:
 
 GIVEN a command-line application that accepts user input
@@ -28,21 +24,44 @@ With this new program, it will greatly simplify the README creation for future a
 
 In a future project, I'd like to introduce a more functional way to submit images to the README, without directly copying and pasting the directory path into the description/test/usage sections of the project.
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+## Table of Contents
+
+- [Technologies Used](#technologies-used)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Tests](#tests)
+- [Contribution](#contribution)
+- [Questions?](#questions?)
+
+
+## Technologies Used:
+
+JavaScript
+VSCode
+Terminal 
+Node.js v16
+Inquirer NPM Package
+NPM
+Github.com
+GitBash
+
 ## Installation
 
-Before we can run the program, we'll need to
+Before you can run the README generator, the package dependencies must be installed using npm i which will automatically install inquirer to a package.json file. (This is if you didn't already install the packages directly from Github). This requires you to have npm installed, which usually comes with Node.js installation. From there, you'll want to enter *node index.js* to run the program locally. FOllow each of the prompts, which will instruct you on what information to enter into the terminal. Once all user information has been passed through to the response object, it will be appended to a new README.md file within the README-Generator file. The console will log any errors that you may occur along the way. 
 
 ## Usage
 
-g
+The program will ask for the following information once the program begins running in the terminal. Make sure all submissions are in single paragraphs, as Node will interpret enter key submissions as you completing your submission for that particular section. The one exception to the text-based submissions is the license section. As mentioned in the terminal, you'll use your arrow keys to navigate up and down the list before confirming your selection with the Enter key. This will append the badge information as well as the name of the license into the README. All that's left to do is navigate to your newly created README within the Explorer section of VSCode, and save a copy of the README in a seperate location for your own purposes!
 
 ## Tests
 
-g
+One of the requirements for the project was to account for an 'empty string' submission for licenses - Otherwise interpreted as a 'No License' submission. This option was included in the list for licenses, and will completely disregard appending any kind of license information for that particular submission. Otherwise, it will append the badge and name normally. A demonstration of the functionality can be observed below: 
 
 ## Contribution
 
-g
+If you'd like to submit PR's for the project, or make suggestions for future features, feel free to contact me through my email or message me directly over Github (also provided below). As it stands, a feature I'd like to incorporate in the near future is image uploading functionality. Should you know how to incorporate a feature like that, fork the branch at your convenience and make a PR associated with the main branch on my Github.
 
 ## License
 
@@ -50,14 +69,7 @@ License: MIT
 
 ## Questions?
 
-My Github: g
-My email: g
-g## Table of Contents
+My Github: https://github.com/BradHamm/
+My email: bradham.opt@gmail.com
 
-- [Installation](#installation)
-- [Usage](#usage)
-- [Contribution](#contribution)
-- [Tests](#tests)
-- [Questions?](#questions?)
-- [License](#license)
-
+Email or message me directly via the links above. 
