@@ -1,7 +1,7 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 
-const licenseList = [
+const licenseList = [ //license list displayed to the user in terminal
   'The MIT License',
   'Mozilla Public License 2.0',
   'IBM Public License Version 1.0',
@@ -11,7 +11,7 @@ const licenseList = [
   'No License',
 ];
 
-const licenseNames = [
+const licenseNames = [ //abbreviated names for readability within the License section of the README
   '## License\n\nLicense: MIT',
   '## License\n\nLicense: MPL 2.0',
   '## License\n\nLicense: IPL 1.0',
@@ -20,7 +20,7 @@ const licenseNames = [
   '## License\n\nLicense: Open Font-1.1',
 ];
 
-const licenseBadges = [
+const licenseBadges = [ //badges to be appended near the top-half of the README
   '[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)',
   '[![License: MPL 2.0](https://img.shields.io/badge/License-MPL_2.0-brightgreen.svg)](https://opensource.org/licenses/MPL-2.0)',
   '[![License: IPL 1.0](https://img.shields.io/badge/License-IPL_1.0-blue.svg)](https://opensource.org/licenses/IPL-1.0)',
@@ -32,7 +32,7 @@ const licenseBadges = [
 
 
 inquirer
-  .prompt([
+  .prompt([ //prompt list for the user
     {
       type: 'input',
       message: 'What is the name of your project?',
@@ -85,7 +85,7 @@ inquirer
       name: 'tests',
     },
     {
-      type: 'list',
+      type: 'list', //using list-type so the user will use arrows to make their selection, rather than typing it out manually.
       message: 'Please select a license from the following list, which will be appended into the "License" section, including the license badge at the top of the README: ',
       name: 'license',
       choices: licenseList,
@@ -99,94 +99,83 @@ inquirer
   
     const licenseName = licenseNames[index]; //selects the associated header to be used within the license section
     const licenseBadge = licenseBadges[index]; //selects the associated badge to be used at the top of the README, after the description.
-  
 
-    //async appending of all sections to the new README.md document
-    fs.writeFile('README.md', `# ${response.projectName}\n\n`, (err) => {
-      if (err) {
-        console.error(err);
-      } else {
-        console.log('README Project name imported - File successfully created.');
-      }
+    //async appending of all sections to the new README.md document - Featuring callback hell.
+      fs.writeFile('README.md', `# ${response.projectName}\n\n`, (err) => {
+        if (err) {
+          console.error(err);
+        } else {
+          console.log('README Project name imported - File successfully created.');
+          fs.appendFile('README.md', `## Description\n\n${response.description}\n\n`, (err) => {
+            if (err) {
+              console.error(err);
+            } else {
+              console.log('Description appended.');
+              fs.appendFile('README.md', `${licenseBadge}\n\n`, (err) => {
+                if (err) {
+                  console.error(err);
+                } else {
+                  console.log('License badge appended.');
+                  fs.appendFile('README.md', `## Technologies Used:\n\n${response.tech}\n\n`, (err) => {
+                    if (err) {
+                      console.error(err);
+                    } else {
+                      console.log('Technologies used appended.');
+                      fs.appendFile('README.md', `## Installation\n\n${response.install}\n\n`, (err) => {
+                        if (err) {
+                          console.error(err);
+                        } else {
+                          console.log('Installation appended.');
+                          fs.appendFile('README.md', `## Table of Contents\n\n- [Technologies Used](#technologies-used)\n- [Installation](#installation)\n- [Usage](#usage)\n- [Contribution](#contribution)\n- [Tests](#tests)\n- [Questions?](#questions?)\n- [License](#license)\n\n`, (err) => {
+                            if (err) {
+                              console.error(err);
+                            } else {
+                              console.log('Table of contents appended.');
+                              fs.appendFile('README.md', `## Usage\n\n${response.usage}\n\n`, (err) => {
+                                if (err) {
+                                  console.error(err);
+                                } else {
+                                  console.log('Usage instructions appended.');
+                                  fs.appendFile('README.md', `## Tests\n\n${response.tests}\n\n`, (err) => {
+                                    if (err) {
+                                      console.error(err);
+                                    } else {
+                                      console.log('Tests appended.');
+                                      fs.appendFile('README.md', `## Contribution\n\n${response.contribution}\n\n`, (err) => {
+                                        if (err) {
+                                          console.error(err);
+                                        } else {
+                                          console.log('Contribution methods appended.');
+                                          fs.appendFile('README.md', `${licenseName}\n\n`, (err) => {
+                                            if (err) {
+                                              console.error(err);
+                                            } else {
+                                              console.log('License header appended.');
+                                              fs.appendFile('README.md', `## Questions?\n\nMy Github: https://github.com/${response.questionsGithub}/\nMy email: ${response.questionsEmail}\n${response.questions}`, (err) => {
+                                                if (err) {
+                                                  console.error(err);
+                                                } else {
+                                                  console.log('Questions section and social links appended.');
+                                                }
+                                              }); 
+                                            }
+                                          });
+                                        }
+                                      });
+                                    }
+                                  });
+                                }
+                              });
+                            }
+                          });
+                        }
+                      });
+                    }
+                  });
+                }
+              });
+            }
+          });
+        }
+      });
     });
-
-    fs.appendFile('README.md', `## Description\n\n${response.description}\n\n`, (err) => {
-      if (err) {
-        console.error(err);
-      } else {
-        console.log('Description appended.');
-      }
-    });
-
-    fs.appendFile('README.md', `${licenseBadge}\n\n`, (err) => {
-      if (err) {
-        console.error(err);
-      } else {
-        console.log('License badge appended.');
-      }
-    });
-
-    fs.appendFile('README.md', `## Technologies Used:\n\n${response.tech}\n\n`, (err) => {
-      if (err) {
-        console.error(err);
-      } else {
-        console.log('Technologies used appended.');
-      }
-    });
-
-    fs.appendFile('README.md', `## Installation\n\n${response.install}\n\n`, (err) => {
-      if (err) {
-        console.error(err);
-      } else {
-        console.log('Installation appended.');
-      }
-    });
-
-    fs.appendFile('README.md', `## Table of Contents\n\n- [Technologies Used](#technologies-used)\n- [Installation](#installation)\n- [Usage](#usage)\n- [Contribution](#contribution)\n- [Tests](#tests)\n- [Questions?](#questions?)\n- [License](#license)\n\n`, (err) => {
-      if (err) {
-        console.error(err);
-      } else {
-        console.log('Table of contents appended.');
-      }
-    });
-
-    fs.appendFile('README.md', `## Usage\n\n${response.usage}\n\n`, (err) => {
-      if (err) {
-        console.error(err);
-      } else {
-        console.log('Usage instructions appended.');
-      }
-    });
-
-    fs.appendFile('README.md', `## Tests\n\n${response.tests}\n\n`, (err) => {
-      if (err) {
-        console.error(err);
-      } else {
-        console.log('Tests appended.');
-      }
-    });
-
-    fs.appendFile('README.md', `## Contribution\n\n${response.contribution}\n\n`, (err) => {
-      if (err) {
-        console.error(err);
-      } else {
-        console.log('Contribution methods appended.');
-      }
-    });
-
-    fs.appendFile('README.md', `${licenseName}\n\n`, (err) => { //licenseName provides full name rather than selection from licenseList
-      if (err) {
-        console.error(err);
-      } else {
-        console.log('License header appended.');
-      }
-    });
-
-    fs.appendFile('README.md', `## Questions?\n\nMy Github: https://github.com/${response.questionsGithub}/\nMy email: ${response.questionsEmail}\n${response.questions}`, (err) => {
-      if (err) {
-        console.error(err);
-      } else {
-        console.log('Questions section and social links appended.'); 
-      }
-    });
-  });

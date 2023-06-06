@@ -1,5 +1,7 @@
 # README Generator
 
+![Overview of program](assets/OverviewScreenshot.png)
+
 For our most recent project, we were asked to create a README generator which automatically formatted user submitted information through the terminal into a comprehensive markdown file for project submissions to Github. Using the inquirer package installed via npm onto a local package.json file, prompts could be given to the user giving clear instructions on what to provide and where the information would be appended inside of the README.md file. The Acceptance Criteria can be found down below for reference:
 
 GIVEN a command-line application that accepts user input
@@ -57,7 +59,11 @@ The program will ask for the following information once the program begins runni
 
 ## Tests
 
-One of the requirements for the project was to account for an 'empty string' submission for licenses - Otherwise interpreted as a 'No License' submission. This option was included in the list for licenses, and will completely disregard appending any kind of license information for that particular submission. Otherwise, it will append the badge and name normally. A demonstration of the functionality can be observed below: 
+One of the requirements for the project was to account for an 'empty string' submission for licenses - Otherwise interpreted as a 'No License' submission. This option was included in the list for licenses, and will completely disregard appending any kind of license information for that particular submission. Otherwise, it will append the badge and name normally. Here is a duplicate of the README created, but with the 'No License' option selected. The highlighted line represents where the license information would normally be appended in another circumstance:
+
+![Example One](assets/LicenseExamp1.png)
+
+![Example Two](assets/LicenseExamp2.png)
 
 ## Contribution
 
